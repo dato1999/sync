@@ -35,8 +35,6 @@ jobs:
         with:
           python-version: '3.x'
   
-      # Move this step AFTER you initialize the sbt configuration
-      # so the caching mechanism actually finds the build.sbt file!
       - name: Initialize sbt Configuration
         run: |
           mkdir -p project
@@ -44,6 +42,9 @@ jobs:
           echo 'version := "1.0.'${{ github.run_number }}'"' >> build.sbt
           echo 'scalaVersion := "2.13.12"' >> build.sbt
           echo 'sbt.version=1.9.8' > project/build.properties
+  
+      - name: Install sbt CLI
+        uses: sbt/setup-sbt@v1
   
       - name: Set up JDK and SBT
         uses: actions/setup-java@v4
