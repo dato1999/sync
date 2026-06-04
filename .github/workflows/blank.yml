@@ -61,6 +61,4 @@ jobs:
         run: sbt package
 
       - name: Publish to GitHub Packages
-        run: sbt publish
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Automatically provided by GitHub
+        run: sbt package
