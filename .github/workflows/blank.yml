@@ -38,11 +38,12 @@ jobs:
       - name: Initialize sbt Configuration
         run: |
           mkdir -p project
-          echo 'name := "generated-schemas"' > build.sbt
+          # We capture the repository name and pass it as the artifact ID
+          echo 'name := "schema-jar-${{ github.event.repository.name }}"' > build.sbt
           echo 'version := "1.0.'${{ github.run_number }}'"' >> build.sbt
           echo 'scalaVersion := "2.13.12"' >> build.sbt
           echo 'sbt.version=1.9.8' > project/build.properties
-  
+          
       - name: Install sbt CLI
         uses: sbt/setup-sbt@v1
   
