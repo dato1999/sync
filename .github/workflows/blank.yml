@@ -56,6 +56,13 @@ jobs:
   
       - name: Generate Scala Code
         run: python generate_schemas.py
+
+      - name: Get Schema Repo Commit Hash
+        run: |
+          # -C tells git to look inside the 'external-schemas' directory
+          SCHEMA_SHA=$(git -C external-schemas rev-parse --short HEAD)
+          echo "SCHEMA_SHA=$SCHEMA_SHA" >> $GITHUB_ENV
+          echo "Target Schema Commit: $SCHEMA_SHA"
   
       - name: Compile and Package JAR
         run: sbt package
