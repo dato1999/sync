@@ -62,3 +62,12 @@ jobs:
 
       - name: Publish to GitHub Packages
         run: sbt package
+        
+      - name: print tree
+        run: tree
+        
+      - name: Upload JAR Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: scala-schema-jar
+          path: target/**/*.jar
