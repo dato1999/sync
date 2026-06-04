@@ -11,11 +11,11 @@ def main():
     }
 
     # Location where the workflow clones the schema repo
-    cfg_files = glob.glob("external-schemas/schemas/**/*.cfg", recursive=True)
-    output_dir = "src/main/scala/com/example/schemas"
+    cfg_files = glob.glob("external-schemas/**/*.cfg", recursive=True)
+    output_dir = "src/main/scala/com/example"
 
     if not cfg_files:
-        print("Error: No .cfg files found in 'external-schemas/schemas/'")
+        print("Error: No .cfg files found in 'external-schemas/'")
         sys.exit(1)
 
     os.makedirs(output_dir, exist_ok=True)
