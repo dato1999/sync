@@ -3,7 +3,7 @@
 ჰეშის ან რილიზის დამატება ჯარის სახელში
 ჯარ ფაილის შემოწმება თუ სწორია
 
-
+```` python 
 - name: Checkout Build Repository
       uses: actions/checkout@v4
 
@@ -71,3 +71,9 @@
     - name: Compile and Package JAR
       if: env.HAS_CHANGES == 'true'
       run: sbt package
+
+````
+
+
+
+
