@@ -30,14 +30,30 @@ jobs:
       - name: print tree
         run: tree
         
-      # - name: Set up Python
-      #   uses: actions/setup-python@v5
-      #   with:
-      #     python-version: '3.x'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
   
-      # - name: Set up JDK and SBT
-      #   uses: actions/setup-java@v4
-      #   with:
-      #     distribution: 'temurin'
-      #     java-version: '17'
-      #     cache: 'sbt'
+      # Move this step AFTER you initialize the sbt configuration
+      # so the caching mechanism actually finds the build.sbt file!
+      - name: Initialize sbt Configuration
+        run: |
+          mkdir -p project
+          echo 'name := "generated-schemas"' > build.sbt
+          echo 'version := "1.0.'${{ github.run_number }}'"' >> build.sbt
+          echo 'scalaVersion := "2.13.12"' >> build.sbt
+          echo 'sbt.version=1.9.8' > project/build.properties
+  
+      - name: Set up JDK and SBT
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'sbt'
+  
+      - name: Generate Scala Code
+        run: python generate_schemas.py
+  
+      - name: Compile and Package JAR
+        run: sbt package
