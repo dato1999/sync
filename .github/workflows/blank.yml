@@ -56,4 +56,4 @@ jobs:
         run: python generate_schemas.py
   
       - name: Compile and Package JAR
-        run: sbt package
+        run: sbtx package
